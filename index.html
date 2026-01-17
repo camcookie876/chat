@@ -2,13 +2,57 @@
 <html>
 <head>
   <title>Camcookie Chat</title>
-  <link rel="stylesheet" href="https://camcookie876.github.io/chat/styles/main.css">
+  <link rel="stylesheet" href="https://camcookie876.github.io/chat/main.css">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="https://camcookie876.github.io/chat/scripts/app.js" type="module"></script>
+  <script src="https://camcookie876.github.io/chat/app.js" type="module" defer></script>
 </head>
 <body>
-  <h1>Welcome to Camcookie Chat</h1>
-  <a href="https://camcookie876.github.io/chat/login/">Login</a>
-  <a href="https://camcookie876.github.io/chat/signup/">Sign Up</a>
+
+  <!-- LOGIN PAGE -->
+  <section id="loginPage" class="page">
+    <h1>Login</h1>
+    <input id="loginEmail" placeholder="Email">
+    <input id="loginPassword" type="password" placeholder="Password">
+    <button id="loginBtn">Login</button>
+    <p><a id="goSignup">Create an account</a></p>
+  </section>
+
+  <!-- SIGNUP PAGE -->
+  <section id="signupPage" class="page" style="display:none;">
+    <h1>Sign Up</h1>
+    <input id="signupEmail" placeholder="Email">
+    <input id="signupPassword" type="password" placeholder="Password">
+    <button id="signupBtn">Sign Up</button>
+    <p><a id="goLogin">Already have an account</a></p>
+  </section>
+
+  <!-- PROFILE PAGE -->
+  <section id="profilePage" class="page" style="display:none;">
+    <h1>Your Profile</h1>
+
+    <label class="profile-label">Username</label>
+    <input id="profileUsername">
+
+    <label class="profile-label">Bio</label>
+    <textarea id="profileBio"></textarea>
+
+    <button id="saveProfileBtn">Save Profile</button>
+    <button id="logoutBtn">Logout</button>
+
+    <p><a id="goChat">Enter Chat</a></p>
+  </section>
+
+  <!-- CHAT PAGE -->
+  <section id="chatPage" class="page" style="display:none;">
+    <h1 id="roomTitle"></h1>
+
+    <div id="messages"></div>
+
+    <input id="messageInput" placeholder="Message">
+    <button id="sendBtn">Send</button>
+
+    <p><a id="goProfile">Back to Profile</a></p>
+  </section>
+
 </body>
 </html>
