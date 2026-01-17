@@ -2,16 +2,18 @@
 <html>
 <head>
   <title>Camcookie Online</title>
-  <link rel="stylesheet" href="https://camcookie876.github.io/chat/main.css">
+  <link rel="stylesheet" href="main.css">
 </head>
 <body>
 
   <!-- TOPBAR -->
   <div id="topbar">
-    <button onclick="showPage('loginPage')">Login</button>
-    <button onclick="showPage('signupPage')">Signup</button>
-    <button onclick="showPage('profilePage')">Profile</button>
-    <button onclick="showPage('chatPage'); initChat()">Chat</button>
+    <div class="logo">Camcookie Online</div>
+    <div class="nav">
+      <button onclick="showPage('profilePage')">Profile</button>
+      <button onclick="showPage('chatPage'); initChat()">Chat</button>
+      <button onclick="logout()">Logout</button>
+    </div>
   </div>
 
   <!-- LOGIN PAGE -->
@@ -20,14 +22,16 @@
     <input id="loginEmail" placeholder="Email">
     <input id="loginPassword" type="password" placeholder="Password">
     <button id="loginBtn">Login</button>
+    <p>Don't have an account? <a onclick="showPage('signupPage')">Sign up</a></p>
   </section>
 
   <!-- SIGNUP PAGE -->
   <section id="signupPage" class="page">
-    <h2>Signup</h2>
+    <h2>Create Account</h2>
     <input id="signupEmail" placeholder="Email">
     <input id="signupPassword" type="password" placeholder="Password">
-    <button id="signupBtn">Create Account</button>
+    <button id="signupBtn">Sign Up</button>
+    <p>Already have an account? <a onclick="showPage('loginPage')">Login</a></p>
   </section>
 
   <!-- PROFILE PAGE -->
@@ -35,25 +39,37 @@
     <h2>Your Profile</h2>
     <input id="profileUsername" placeholder="Username">
     <textarea id="profileBio" placeholder="Bio"></textarea>
-    <button id="saveProfileBtn">Save</button>
-    <button onclick="logout()">Logout</button>
+    <button id="saveProfileBtn">Save Profile</button>
   </section>
 
   <!-- CHAT PAGE -->
-  <section id="chatPage" class="page">
-    <h2 id="roomTitle">Chat</h2>
+  <section id="chatPage" class="page chat-layout">
 
-    <input id="joinRoomInput" placeholder="Enter room code">
-    <button id="joinRoomBtn">Join Room</button>
-    <button id="createRoomBtn">Create New Room</button>
+    <!-- LEFT SIDEBAR -->
+    <div class="sidebar">
+      <h3>Rooms</h3>
 
-    <div id="messages"></div>
+      <input id="joinRoomInput" placeholder="Enter room code">
+      <button id="joinRoomBtn">Join Room</button>
 
-    <input id="messageInput" placeholder="Message">
-    <button id="sendBtn">Send</button>
+      <button id="createRoomBtn" class="create">+ Create New Room</button>
+    </div>
+
+    <!-- MAIN CHAT AREA -->
+    <div class="chat-area">
+      <h2 id="roomTitle">Chat</h2>
+
+      <div id="messages" class="messages"></div>
+
+      <div class="input-bar">
+        <input id="messageInput" placeholder="Type a message...">
+        <button id="sendBtn">Send</button>
+      </div>
+    </div>
+
   </section>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-  <script src="https://camcookie876.github.io/chat/app.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>

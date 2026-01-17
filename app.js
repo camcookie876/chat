@@ -97,19 +97,33 @@ async function sendMessage(room, username, content) {
 }
 
 /* ============================================================
+   RENDER MESSAGE BUBBLES
+   ============================================================ */
+function renderMessage(msg, currentUserId) {
+  const div = document.createElement("div");
+  div.className = msg.user_id === currentUserId ? "bubble me" : "bubble";
+
+  div.innerHTML = `
+    <div class="username">${msg.username}</div>
+    <div class="text">${msg.content}</div>
+  `;
+
+  return div;
+}
+
+/* ============================================================
    ROOM STARTER
    ============================================================ */
-function startRoom(room, profile) {
-  document.getElementById("roomTitle").textContent = "Room " + room;
-
+async function startRoom(room, profile) {
+  const user = await getUser();
   const messagesDiv = document.getElementById("messages");
   messagesDiv.innerHTML = "";
 
+  document.getElementById("roomTitle").textContent = "Room " + room;
+
   joinRoom(room, (msg) => {
-    const div = document.createElement("div");
-    div.className = "message";
-    div.textContent = msg.username + ": " + msg.content;
-    messagesDiv.appendChild(div);
+    messagesDiv.appendChild(renderMessage(msg, user.id));
+    messagesDiv.scrollTop = messagesDiv.scrollHeight;
   });
 
   document.getElementById("sendBtn").onclick = async () => {
@@ -128,7 +142,7 @@ function showPage(id) {
   document.querySelectorAll("section.page").forEach(sec => {
     sec.style.display = "none";
   });
-  document.getElementById(id).style.display = "block";
+  document.getElementById(id).style.display = "flex";
 }
 
 /* ============================================================
@@ -136,8 +150,8 @@ function showPage(id) {
    ============================================================ */
 function initLogin() {
   document.getElementById("loginBtn").onclick = async () => {
-    const email = document.getElementById("loginEmail").value;
-    const password = document.getElementById("loginPassword").value;
+    const email = loginEmail.value;
+    const password = loginPassword.value;
 
     const { error } = await login(email, password);
     if (error) return alert(error.message);
@@ -149,8 +163,8 @@ function initLogin() {
 
 function initSignup() {
   document.getElementById("signupBtn").onclick = async () => {
-    const email = document.getElementById("signupEmail").value;
-    const password = document.getElementById("signupPassword").value;
+    const email = signupEmail.value;
+    const password = signupPassword.value;
 
     const { error } = await signup(email, password);
     if (error) return alert(error.message);
@@ -166,13 +180,13 @@ async function initProfile() {
 
   const profile = await loadProfile();
 
-  document.getElementById("profileUsername").value = profile?.username || "";
-  document.getElementById("profileBio").value = profile?.bio || "";
+  profileUsername.value = profile?.username || "";
+  profileBio.value = profile?.bio || "";
 
-  document.getElementById("saveProfileBtn").onclick = async () => {
+  saveProfileBtn.onclick = async () => {
     await saveProfile({
-      username: document.getElementById("profileUsername").value,
-      bio: document.getElementById("profileBio").value
+      username: profileUsername.value,
+      bio: profileBio.value
     });
     alert("Profile saved");
   };
@@ -184,13 +198,13 @@ async function initChat() {
 
   const profile = await loadProfile();
 
-  document.getElementById("joinRoomBtn").onclick = () => {
-    const code = document.getElementById("joinRoomInput").value.trim();
+  joinRoomBtn.onclick = () => {
+    const code = joinRoomInput.value.trim();
     if (!code) return alert("Enter a room code");
     startRoom(code, profile);
   };
 
-  document.getElementById("createRoomBtn").onclick = () => {
+  createRoomBtn.onclick = () => {
     const code = generateRoomCode();
     startRoom(code, profile);
   };
