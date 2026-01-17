@@ -42,32 +42,31 @@
     <button id="saveProfileBtn">Save Profile</button>
   </section>
 
-  <!-- CHAT PAGE -->
-  <section id="chatPage" class="page chat-layout">
+<!-- CHAT PAGE -->
+<section id="chatPage" class="page chat-layout">
 
-    <!-- LEFT SIDEBAR -->
-    <div class="sidebar">
-      <h3>Rooms</h3>
+  <!-- LEFT SIDEBAR -->
+  <div class="sidebar">
+    <h3>Recent Rooms</h3>
+    <div id="recentRooms"></div>
 
-      <input id="joinRoomInput" placeholder="Enter room code">
-      <button id="joinRoomBtn">Join Room</button>
+    <h3>Join/Create</h3>
+    <input id="joinRoomInput" placeholder="Enter room code">
+    <button id="joinRoomBtn">Join Room</button>
+    <button id="createRoomBtn" class="create">+ Create New Room</button>
+  </div>
 
-      <button id="createRoomBtn" class="create">+ Create New Room</button>
+  <!-- MAIN CHAT AREA -->
+  <div class="chat-area">
+    <h2 id="roomTitle">Chat</h2>
+    <div id="messages" class="messages"></div>
+    <div class="input-bar">
+      <input id="messageInput" placeholder="Type a message...">
+      <button id="sendBtn">Send</button>
     </div>
+  </div>
 
-    <!-- MAIN CHAT AREA -->
-    <div class="chat-area">
-      <h2 id="roomTitle">Chat</h2>
-
-      <div id="messages" class="messages"></div>
-
-      <div class="input-bar">
-        <input id="messageInput" placeholder="Type a message...">
-        <button id="sendBtn">Send</button>
-      </div>
-    </div>
-
-  </section>
+</section>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
   <script src="app.js"></script>

@@ -197,17 +197,66 @@ async function initChat() {
   if (!user) return showPage("loginPage");
 
   const profile = await loadProfile();
+  const roomsDiv = document.getElementById("recentRooms");
+  roomsDiv.innerHTML = "";
 
-  joinRoomBtn.onclick = () => {
-    const code = joinRoomInput.value.trim();
+  const rooms = await loadRecentRooms();
+
+  if (rooms.length === 0) {
+    roomsDiv.innerHTML = "<p>No recent rooms. Create or join one!</p>";
+  } else {
+    rooms.forEach(r => {
+      const row = document.createElement("div");
+      row.className = "roomRow";
+      row.innerHTML = `
+        <span class="code">${r.code}</span>
+        <span class="time">${r.time}</span>
+        <button class="joinBtn">Join</button>
+      `;
+      row.querySelector(".joinBtn").onclick = () => startRoom(r.code, profile);
+      roomsDiv.appendChild(row);
+    });
+  }
+
+  // still allow manual join/create
+  document.getElementById("joinRoomBtn").onclick = () => {
+    const code = document.getElementById("joinRoomInput").value.trim();
     if (!code) return alert("Enter a room code");
     startRoom(code, profile);
   };
 
-  createRoomBtn.onclick = () => {
+  document.getElementById("createRoomBtn").onclick = () => {
     const code = generateRoomCode();
     startRoom(code, profile);
   };
+}
+async function loadRecentRooms() {
+  const user = await getUser();
+  if (!user) return [];
+
+  const { data, error } = await client
+    .from("messages")
+    .select("room_code, created_at")
+    .eq("user_id", user.id)
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    alert("Error loading rooms: " + error.message);
+    return [];
+  }
+
+  // Group by room_code, keep latest time
+  const rooms = {};
+  data.forEach(msg => {
+    if (!rooms[msg.room_code] || new Date(msg.created_at) > new Date(rooms[msg.room_code])) {
+      rooms[msg.room_code] = msg.created_at;
+    }
+  });
+
+  return Object.entries(rooms).map(([code, time]) => ({
+    code,
+    time: new Date(time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+  }));
 }
 
 /* ============================================================
