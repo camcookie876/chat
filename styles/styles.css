@@ -1,0 +1,121 @@
+/* ============================================================
+   GLOBAL PAGE STYLE
+   ============================================================ */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background: #e8f1ff; /* soft blue */
+  color: #0d1b3d; /* deep navy text */
+}
+
+/* Centered container for all pages */
+.page {
+  max-width: 600px;
+  margin: 40px auto;
+  background: white;
+  padding: 30px;
+  border-radius: 14px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+/* ============================================================
+   HEADINGS
+   ============================================================ */
+h1, h2, h3 {
+  color: #0d47a1; /* strong blue */
+  margin-top: 0;
+  text-align: center;
+}
+
+/* ============================================================
+   INPUTS + BUTTONS
+   ============================================================ */
+input, textarea {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0 16px 0;
+  border: 2px solid #90caf9; /* light blue border */
+  border-radius: 8px;
+  font-size: 16px;
+  background: #ffffff;
+  color: #0d1b3d;
+}
+
+input:focus, textarea:focus {
+  outline: none;
+  border-color: #42a5f5; /* brighter blue */
+  box-shadow: 0 0 6px rgba(66,165,245,0.5);
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  background: #1e88e5; /* main blue */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 17px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background 0.2s;
+}
+
+button:hover {
+  background: #1565c0; /* darker blue */
+}
+
+/* ============================================================
+   LINKS
+   ============================================================ */
+a {
+  color: #1565c0;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* ============================================================
+   CHAT BOX
+   ============================================================ */
+#messages {
+  height: 300px;
+  overflow-y: auto;
+  background: #f0f7ff; /* very light blue */
+  padding: 12px;
+  border-radius: 10px;
+  border: 2px solid #bbdefb;
+  margin-bottom: 15px;
+}
+
+.message {
+  background: white;
+  padding: 10px;
+  margin-bottom: 8px;
+  border-radius: 8px;
+  border-left: 4px solid #1e88e5;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+/* ============================================================
+   PROFILE PAGE
+   ============================================================ */
+.profile-label {
+  font-weight: bold;
+  margin-top: 10px;
+  color: #0d47a1;
+}
+
+/* ============================================================
+   ROOM TITLE
+   ============================================================ */
+#roomTitle {
+  text-align: center;
+  font-size: 22px;
+  font-weight: bold;
+  color: #0d47a1;
+  margin-bottom: 20px;
+}
