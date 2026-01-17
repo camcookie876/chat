@@ -90,6 +90,31 @@ async function sendMessage(room, username, content) {
 }
 
 /* ============================================================
+   ROOM STARTER
+   ============================================================ */
+function startRoom(room, profile) {
+  document.getElementById("roomTitle").textContent = "Room " + room;
+
+  const messagesDiv = document.getElementById("messages");
+  messagesDiv.innerHTML = "";
+
+  joinRoom(room, (msg) => {
+    const div = document.createElement("div");
+    div.className = "message";
+    div.textContent = msg.username + ": " + msg.content;
+    messagesDiv.appendChild(div);
+  });
+
+  document.getElementById("sendBtn").onclick = async () => {
+    const content = document.getElementById("messageInput").value.trim();
+    if (!content) return;
+
+    await sendMessage(room, profile.username, content);
+    document.getElementById("messageInput").value = "";
+  };
+}
+
+/* ============================================================
    PAGE SWITCHING
    ============================================================ */
 function showPage(id) {
@@ -113,10 +138,6 @@ function initLogin() {
     showPage("profilePage");
     initProfile();
   };
-
-  document.getElementById("goSignup").onclick = () => {
-    showPage("signupPage");
-  };
 }
 
 function initSignup() {
@@ -129,10 +150,6 @@ function initSignup() {
 
     showPage("profilePage");
     initProfile();
-  };
-
-  document.getElementById("goLogin").onclick = () => {
-    showPage("loginPage");
   };
 }
 
@@ -152,13 +169,6 @@ async function initProfile() {
     });
     alert("Profile saved");
   };
-
-  document.getElementById("logoutBtn").onclick = logout;
-
-  document.getElementById("goChat").onclick = () => {
-    showPage("chatPage");
-    initChat();
-  };
 }
 
 async function initChat() {
@@ -167,30 +177,15 @@ async function initChat() {
 
   const profile = await loadProfile();
 
-  const room = generateRoomCode();
-  document.getElementById("roomTitle").textContent = "Room " + room;
-
-  const messagesDiv = document.getElementById("messages");
-  messagesDiv.innerHTML = "";
-
-  joinRoom(room, (msg) => {
-    const div = document.createElement("div");
-    div.className = "message";
-    div.textContent = msg.username + ": " + msg.content;
-    messagesDiv.appendChild(div);
-  });
-
-  document.getElementById("sendBtn").onclick = async () => {
-    const content = document.getElementById("messageInput").value.trim();
-    if (!content) return;
-
-    await sendMessage(room, profile.username, content);
-    document.getElementById("messageInput").value = "";
+  document.getElementById("joinRoomBtn").onclick = () => {
+    const code = document.getElementById("joinRoomInput").value.trim();
+    if (!code) return alert("Enter a room code");
+    startRoom(code, profile);
   };
 
-  document.getElementById("goProfile").onclick = () => {
-    showPage("profilePage");
-    initProfile();
+  document.getElementById("createRoomBtn").onclick = () => {
+    const code = generateRoomCode();
+    startRoom(code, profile);
   };
 }
 

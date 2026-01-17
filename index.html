@@ -1,58 +1,59 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Camcookie Chat</title>
+  <title>Camcookie Online</title>
   <link rel="stylesheet" href="https://camcookie876.github.io/chat/main.css">
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="https://camcookie876.github.io/chat/app.js" type="module" defer></script>
 </head>
 <body>
 
+  <!-- TOPBAR -->
+  <div id="topbar">
+    <button onclick="showPage('loginPage')">Login</button>
+    <button onclick="showPage('signupPage')">Signup</button>
+    <button onclick="showPage('profilePage')">Profile</button>
+    <button onclick="showPage('chatPage'); initChat()">Chat</button>
+  </div>
+
   <!-- LOGIN PAGE -->
   <section id="loginPage" class="page">
-    <h1>Login</h1>
+    <h2>Login</h2>
     <input id="loginEmail" placeholder="Email">
     <input id="loginPassword" type="password" placeholder="Password">
     <button id="loginBtn">Login</button>
-    <p><a id="goSignup">Create an account</a></p>
   </section>
 
   <!-- SIGNUP PAGE -->
-  <section id="signupPage" class="page" style="display:none;">
-    <h1>Sign Up</h1>
+  <section id="signupPage" class="page">
+    <h2>Signup</h2>
     <input id="signupEmail" placeholder="Email">
     <input id="signupPassword" type="password" placeholder="Password">
-    <button id="signupBtn">Sign Up</button>
-    <p><a id="goLogin">Already have an account</a></p>
+    <button id="signupBtn">Create Account</button>
   </section>
 
   <!-- PROFILE PAGE -->
-  <section id="profilePage" class="page" style="display:none;">
-    <h1>Your Profile</h1>
-
-    <label class="profile-label">Username</label>
-    <input id="profileUsername">
-
-    <label class="profile-label">Bio</label>
-    <textarea id="profileBio"></textarea>
-
-    <button id="saveProfileBtn">Save Profile</button>
-    <button id="logoutBtn">Logout</button>
-
-    <p><a id="goChat">Enter Chat</a></p>
+  <section id="profilePage" class="page">
+    <h2>Your Profile</h2>
+    <input id="profileUsername" placeholder="Username">
+    <textarea id="profileBio" placeholder="Bio"></textarea>
+    <button id="saveProfileBtn">Save</button>
+    <button onclick="logout()">Logout</button>
   </section>
 
   <!-- CHAT PAGE -->
-  <section id="chatPage" class="page" style="display:none;">
-    <h1 id="roomTitle"></h1>
+  <section id="chatPage" class="page">
+    <h2 id="roomTitle">Chat</h2>
+
+    <input id="joinRoomInput" placeholder="Enter room code">
+    <button id="joinRoomBtn">Join Room</button>
+    <button id="createRoomBtn">Create New Room</button>
 
     <div id="messages"></div>
 
     <input id="messageInput" placeholder="Message">
     <button id="sendBtn">Send</button>
-
-    <p><a id="goProfile">Back to Profile</a></p>
   </section>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <script src="https://camcookie876.github.io/chat/script.js"></script>
 </body>
 </html>
