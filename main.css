@@ -1,122 +1,138 @@
 /* ============================================================
-   GLOBAL PAGE STYLE
+   GLOBAL STYLES
    ============================================================ */
 body {
   margin: 0;
-  padding: 0;
-  font-family: Arial, sans-serif;
-  background: #e8f1ff; /* soft blue */
-  color: #0d1b3d; /* deep navy text */
+  font-family: system-ui, sans-serif;
+  background: #f4f8ff;
+  color: #0a1a33;
 }
 
-/* Centered container for all pages */
 .page {
+  display: none;
+  padding: 20px;
   max-width: 600px;
-  margin: 40px auto;
+  margin: 80px auto 40px auto;
   background: white;
-  padding: 30px;
-  border-radius: 14px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
 
 /* ============================================================
-   HEADINGS
+   TOPBAR
    ============================================================ */
-h1, h2, h3 {
-  color: #0d47a1; /* strong blue */
-  margin-top: 0;
-  text-align: center;
+#topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: #1e5bff;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  gap: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  z-index: 1000;
+}
+
+#topbar button {
+  background: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  color: #1e5bff;
+  transition: 0.2s;
+}
+
+#topbar button:hover {
+  background: #e8efff;
 }
 
 /* ============================================================
-   INPUTS + BUTTONS
+   INPUTS & BUTTONS
    ============================================================ */
 input, textarea {
   width: 100%;
   padding: 12px;
   margin: 8px 0 16px 0;
-  border: 2px solid #90caf9; /* light blue border */
+  border: 2px solid #d0dcff;
   border-radius: 8px;
   font-size: 16px;
-  background: #ffffff;
-  color: #0d1b3d;
+  background: #f9fbff;
+  transition: 0.2s;
 }
 
 input:focus, textarea:focus {
+  border-color: #1e5bff;
   outline: none;
-  border-color: #42a5f5; /* brighter blue */
-  box-shadow: 0 0 6px rgba(66,165,245,0.5);
+  background: white;
 }
 
 button {
-  width: 100%;
-  padding: 12px;
-  background: #1e88e5; /* main blue */
+  background: #1e5bff;
   color: white;
   border: none;
+  padding: 12px 18px;
   border-radius: 8px;
-  font-size: 17px;
+  font-size: 16px;
   cursor: pointer;
-  margin-top: 10px;
-  transition: background 0.2s;
+  font-weight: 600;
+  transition: 0.2s;
 }
 
 button:hover {
-  background: #1565c0; /* darker blue */
+  background: #1747cc;
 }
 
 /* ============================================================
-   LINKS
-   ============================================================ */
-a {
-  color: #1565c0;
-  text-decoration: none;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-a:hover {
-  text-decoration: underline;
-}
-
-/* ============================================================
-   CHAT BOX
+   CHAT PAGE
    ============================================================ */
 #messages {
   height: 300px;
   overflow-y: auto;
-  background: #f0f7ff; /* very light blue */
+  background: #f0f4ff;
   padding: 12px;
-  border-radius: 10px;
-  border: 2px solid #bbdefb;
-  margin-bottom: 15px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  border: 2px solid #d0dcff;
 }
 
 .message {
   background: white;
-  padding: 10px;
-  margin-bottom: 8px;
+  padding: 10px 14px;
+  margin-bottom: 10px;
   border-radius: 8px;
-  border-left: 4px solid #1e88e5;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  border-left: 4px solid #1e5bff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
 /* ============================================================
-   PROFILE PAGE
+   ROOM CODE INPUTS
    ============================================================ */
-.profile-label {
-  font-weight: bold;
+#joinRoomInput {
+  width: calc(100% - 140px);
+  display: inline-block;
+}
+
+#joinRoomBtn {
+  width: 120px;
+  margin-left: 10px;
+}
+
+#createRoomBtn {
+  width: 100%;
   margin-top: 10px;
-  color: #0d47a1;
 }
 
 /* ============================================================
-   ROOM TITLE
+   HEADERS
    ============================================================ */
-#roomTitle {
-  text-align: center;
-  font-size: 22px;
-  font-weight: bold;
-  color: #0d47a1;
-  margin-bottom: 20px;
+h2 {
+  margin-top: 0;
+  color: #1e5bff;
+  font-size: 24px;
+  font-weight: 700;
 }
