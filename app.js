@@ -2,8 +2,8 @@
    SUPABASE CLIENT
    ============================================================ */
 const client = supabase.createClient(
-  "https://YOUR-PROJECT.supabase.co",
-  "YOUR-PUBLIC-ANON-KEY"
+  "https://bafcfszceittoberpgdz.supabase.co",
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJhZmNmc3pjZWl0dG9iZXJwZ2R6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg2NjcwNjYsImV4cCI6MjA4NDI0MzA2Nn0.-JLfGymc77W3pIxMimhXZ3G21ATU25yOfPPvGNirmQU"
 );
 
 /* ============================================================
