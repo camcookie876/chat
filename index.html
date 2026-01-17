@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Camcookie Chat</title>
+  <link rel="stylesheet" href="./styles/main.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+  <div id="auth">
+    <h1>Camcookie Chat</h1>
+    <button id="loginGitHub">Login with GitHub</button>
+  </div>
+
+  <div id="app" style="display:none;">
+    <h2 id="roomTitle"></h2>
+
+    <div id="roomControls">
+      <button id="newRoom">Create Room</button>
+      <input id="roomInput" placeholder="Enter 6-digit code">
+      <button id="joinRoom">Join</button>
+    </div>
+
+    <div id="chatBox">
+      <div id="messages"></div>
+      <input id="username" placeholder="Username">
+      <input id="messageInput" placeholder="Message">
+      <button id="send">Send</button>
+    </div>
+  </div>
+
+  <script type="module">
+    import { client } from "./scripts/supabase.js";
+    import { loginWithGitHub, getUser } from "./scripts/auth.js";
+    import { joinRoom, sendMessage, generateRoomCode } from "./scripts/chat.js";
+    import { loadUsername, saveUsername, loadLastRoom } from "./scripts/ui.js";
+
+    const authDiv = document.getElementById("auth");
+    const appDiv = document.getElementById("app");
+
+    const loginBtn = document.getElementById("loginGitHub");
+    const newRoomBtn = document.getElementById("newRoom");
+    const joinRoomBtn = document.getElementById("joinRoom");
+
+    const roomInput = document.getElementById("roomInput");
+    const roomTitle = document.getElementById("roomTitle");
+
+    const messagesDiv = document.getElementById("messages");
+    const usernameInput = document.getElementById("username");
+    const messageInput = document.getElementById("messageInput");
+    const sendBtn = document.getElementById("send");
+
+    loginBtn.addEventListener("click", loginWithGitHub);
+
+    let currentRoom = null;
+
+    function addMessage(msg) {
+      const div = document.createElement("div");
+      div.className = "message";
+      div.textContent = msg.username + ": " + msg.content;
+      messagesDiv.appendChild(div);
+    }
+
+    (async () => {
+      const user = await getUser();
+      if (!user) return;
+
+      authDiv.style.display = "none";
+      appDiv.style.display = "block";
+
+      usernameInput.value = loadUsername();
+
+      const lastRoom = loadLastRoom();
+      if (lastRoom) {
+        currentRoom = lastRoom;
+        roomTitle.textContent = "Room " + currentRoom;
+        joinRoom(currentRoom, addMessage);
+      }
+    })();
+
+    newRoomBtn.addEventListener("click", () => {
+      const code = generateRoomCode();
+      currentRoom = code;
+      roomTitle.textContent = "Room " + code;
+      joinRoom(code, addMessage);
+    });
+
+    joinRoomBtn.addEventListener("click", () => {
+      const code = roomInput.value.trim();
+      if (code.length === 6) {
+        currentRoom = code;
+        roomTitle.textContent = "Room " + code;
+        joinRoom(code, addMessage);
+      }
+    });
+
+    sendBtn.addEventListener("click", () => {
+      const username = usernameInput.value.trim();
+      const content = messageInput.value.trim();
+
+      if (!username || !content) return;
+
+      saveUsername(username);
+      sendMessage(currentRoom, username, content);
+      messageInput.value = "";
+    });
+  </script>
+
+</body>
+</html>

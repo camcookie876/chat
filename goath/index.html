@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login - Camcookie Chat</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script type="module"> import { client } from "../scripts/supabase.js"; (async () => { const { data: { user } } = await client.auth.getUser(); if (user) { localStorage.setItem("loggedIn", "true"); } window.location.href = "https://camcookie876.github.io/chat/"; })(); </script>
+  <style>
+    body {
+        background: #0099ff;
+        color: #fff;
+    }
+  </style>
+</head>
+<body>
+<h1>Logging in...</h1>
+</body>
+</html>
