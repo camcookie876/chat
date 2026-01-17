@@ -82,11 +82,18 @@ async function joinRoom(code, onMessage) {
 }
 
 async function sendMessage(room, username, content) {
-  await client.from("messages").insert({
+  const user = await getUser();
+
+  const { error } = await client.from("messages").insert({
     room_code: room,
+    user_id: user.id,
     username,
     content
   });
+
+  if (error) {
+    alert("Message error: " + error.message);
+  }
 }
 
 /* ============================================================
