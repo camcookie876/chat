@@ -101,7 +101,7 @@ async function sendMessage(room, username, content) {
    ============================================================ */
 function renderMessage(msg, currentUserId) {
   const div = document.createElement("div");
-  div.className = msg.user_id === currentUserId ? "bubble me" : "bubble";
+  div.className = msg.user_id === currentUserId ? "bubble me fade-in" : "bubble fade-in";
 
   div.innerHTML = `
     <div class="username">${msg.username}</div>
@@ -153,7 +153,6 @@ async function loadRecentRooms() {
     return [];
   }
 
-  // Group by room_code, keep latest time
   const rooms = {};
   data.forEach(msg => {
     if (!rooms[msg.room_code] || new Date(msg.created_at) > new Date(rooms[msg.room_code])) {
@@ -173,8 +172,11 @@ async function loadRecentRooms() {
 function showPage(id) {
   document.querySelectorAll("section.page").forEach(sec => {
     sec.style.display = "none";
+    sec.classList.remove("fade-in");
   });
-  document.getElementById(id).style.display = "flex";
+  const page = document.getElementById(id);
+  page.style.display = id === "chatPage" ? "flex" : "block";
+  page.classList.add("fade-in");
 }
 
 /* ============================================================
@@ -239,7 +241,7 @@ async function initChat() {
   } else {
     rooms.forEach(r => {
       const row = document.createElement("div");
-      row.className = "roomRow";
+      row.className = "roomRow fade-in";
       row.innerHTML = `
         <span class="code">${r.code}</span>
         <span class="time">${r.time}</span>
@@ -250,7 +252,6 @@ async function initChat() {
     });
   }
 
-  // still allow manual join/create
   document.getElementById("joinRoomBtn").onclick = () => {
     const code = document.getElementById("joinRoomInput").value.trim();
     if (!code) return alert("Enter a room code");

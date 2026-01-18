@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Camcookie Chat</title>
+  <title>Camcookie Online</title>
   <link rel="stylesheet" href="main.css">
-  <link rel="stylesheet" media="(max-width: 768px)" href="mobile.css">
 </head>
 <body>
 
   <!-- TOPBAR -->
   <div id="topbar">
-    <div class="logo">Camcookie Chat</div>
+    <div class="logo">Camcookie Online</div>
     <div class="nav">
       <button onclick="showPage('profilePage')">Profile</button>
       <button onclick="showPage('chatPage'); initChat()">Chat</button>
@@ -18,7 +17,7 @@
   </div>
 
   <!-- LOGIN PAGE -->
-  <section id="loginPage" class="page">
+  <section id="loginPage" class="page fade">
     <h2>Login</h2>
     <input id="loginEmail" placeholder="Email">
     <input id="loginPassword" type="password" placeholder="Password">
@@ -27,7 +26,7 @@
   </section>
 
   <!-- SIGNUP PAGE -->
-  <section id="signupPage" class="page">
+  <section id="signupPage" class="page fade">
     <h2>Create Account</h2>
     <input id="signupEmail" placeholder="Email">
     <input id="signupPassword" type="password" placeholder="Password">
@@ -36,38 +35,38 @@
   </section>
 
   <!-- PROFILE PAGE -->
-  <section id="profilePage" class="page">
+  <section id="profilePage" class="page fade">
     <h2>Your Profile</h2>
     <input id="profileUsername" placeholder="Username">
     <textarea id="profileBio" placeholder="Bio"></textarea>
     <button id="saveProfileBtn">Save Profile</button>
   </section>
 
-<!-- CHAT PAGE -->
-<section id="chatPage" class="page chat-layout">
+  <!-- CHAT PAGE -->
+  <section id="chatPage" class="page chat-layout fade">
 
-  <!-- LEFT SIDEBAR -->
-  <div class="sidebar">
-    <h3>Recent Rooms</h3>
-    <div id="recentRooms"></div>
+    <!-- LEFT SIDEBAR -->
+    <div class="sidebar slide-in">
+      <h3>Recent Rooms</h3>
+      <div id="recentRooms"></div>
 
-    <h3>Join/Create</h3>
-    <input id="joinRoomInput" placeholder="Enter room code">
-    <button id="joinRoomBtn">Join Room</button>
-    <button id="createRoomBtn" class="create">+ Create New Room</button>
-  </div>
-
-  <!-- MAIN CHAT AREA -->
-  <div class="chat-area">
-    <h2 id="roomTitle">Chat</h2>
-    <div id="messages" class="messages"></div>
-    <div class="input-bar">
-      <input id="messageInput" placeholder="Type a message...">
-      <button id="sendBtn">Send</button>
+      <h3>Join / Create</h3>
+      <input id="joinRoomInput" placeholder="Enter room code">
+      <button id="joinRoomBtn">Join Room</button>
+      <button id="createRoomBtn" class="create">+ Create New Room</button>
     </div>
-  </div>
 
-</section>
+    <!-- MAIN CHAT AREA -->
+    <div class="chat-area slide-in">
+      <h2 id="roomTitle">Chat</h2>
+      <div id="messages" class="messages"></div>
+      <div class="input-bar">
+        <input id="messageInput" placeholder="Type a message...">
+        <button id="sendBtn">Send</button>
+      </div>
+    </div>
+
+  </section>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
   <script src="app.js"></script>
