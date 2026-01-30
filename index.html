@@ -3,7 +3,6 @@
 <head>
   <title>Camcookie Chat</title>
   <link rel="stylesheet" href="main.css">
-  <link rel="stylesheet" media="(max-width: 768px)" href="mobile.css">
 </head>
 <body>
 
@@ -13,7 +12,6 @@
     <div class="nav">
       <button onclick="showPage('profilePage')">Profile</button>
       <button onclick="showPage('chatPage'); initChat()">Chat</button>
-      <button onclick="window.location.href='https://camcookie876.github.io/chat/home">Latest Version</button>
       <button onclick="logout()">Logout</button>
     </div>
   </div>
@@ -25,6 +23,7 @@
     <input id="loginPassword" type="password" placeholder="Password">
     <button id="loginBtn">Login</button>
     <p>Don't have an account? <a onclick="showPage('signupPage')">Sign up</a></p>
+    <a href="https://camcookie876.github.io/chat/home/">Latest Version</a>
   </section>
 
   <!-- SIGNUP PAGE -->
@@ -34,6 +33,7 @@
     <input id="signupPassword" type="password" placeholder="Password">
     <button id="signupBtn">Sign Up</button>
     <p>Already have an account? <a onclick="showPage('loginPage')">Login</a></p>
+    <a href="https://camcookie876.github.io/chat/home/">Latest Version</a>
   </section>
 
   <!-- PROFILE PAGE -->
@@ -42,6 +42,7 @@
     <input id="profileUsername" placeholder="Username">
     <textarea id="profileBio" placeholder="Bio"></textarea>
     <button id="saveProfileBtn">Save Profile</button>
+    <a href="https://camcookie876.github.io/chat/home/">Latest Version</a>
   </section>
 
 <!-- CHAT PAGE -->
@@ -56,13 +57,13 @@
     <input id="joinRoomInput" placeholder="Enter room code">
     <button id="joinRoomBtn">Join Room</button>
     <button id="createRoomBtn" class="create">+ Create New Room</button>
-    <h1>Out of order. Click latest version</h1><!-- Remove Out of order -->
+    <a href="https://camcookie876.github.io/chat/home/">Latest Version</a>
   </div>
 
   <!-- MAIN CHAT AREA -->
   <div class="chat-area">
     <h2 id="roomTitle">Chat</h2>
-    <div id="messages" class="messages"><h1>Out of order</h1></div><!-- Remove Out of order -->
+    <div id="messages" class="messages"></div>
     <div class="input-bar">
       <input id="messageInput" placeholder="Type a message...">
       <button id="sendBtn">Send</button>
