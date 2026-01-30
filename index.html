@@ -1,80 +1,64 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Camcookie Chat</title>
-  <link rel="stylesheet" href="main.css">
+  <meta charset="UTF-8">
+  <title>Welcome to Camcookie Connect</title>
+  <link rel="stylesheet" href="https://camcookie876.github.io/chat/homepage.css">
 </head>
+
 <body>
 
-  <!-- TOPBAR -->
-  <div id="topbar">
-    <div class="logo">Camcookie Chat</div>
-    <div class="nav">
-      <button onclick="showPage('profilePage')">Profile</button>
-      <button onclick="showPage('chatPage'); initChat()">Chat</button>
-      <button onclick="logout()">Logout</button>
+  <!-- HERO SECTION -->
+  <header class="hero">
+    <div class="hero-content">
+      <h1>Camcookie Connect</h1>
+      <p class="tagline">Your world. Your friends. Your space.</p>
+
+      <p class="subtext">
+        Chat in real time, share posts, make friends, and build your own digital identity — all in one place.
+      </p>
+
+      <a href="https://camcookie876.github.io/chat/home/" class="cta-btn">Get Started</a>
     </div>
-  </div>
+  </header>
 
-  <!-- LOGIN PAGE -->
-  <section id="loginPage" class="page">
-    <h2>Login</h2>
-    <input id="loginEmail" placeholder="Email">
-    <input id="loginPassword" type="password" placeholder="Password">
-    <button id="loginBtn">Login</button>
-    <p>Don't have an account? <a onclick="showPage('signupPage')">Sign up</a></p>
-    <a href="https://camcookie876.github.io/chat/home/">Latest Version</a>
-  </section>
+  <!-- FEATURES -->
+  <section class="features">
+    <h2>Why Join Camcookie Connect?</h2>
 
-  <!-- SIGNUP PAGE -->
-  <section id="signupPage" class="page">
-    <h2>Create Account</h2>
-    <input id="signupEmail" placeholder="Email">
-    <input id="signupPassword" type="password" placeholder="Password">
-    <button id="signupBtn">Sign Up</button>
-    <p>Already have an account? <a onclick="showPage('loginPage')">Login</a></p>
-    <a href="https://camcookie876.github.io/chat/home/">Latest Version</a>
-  </section>
+    <div class="feature-grid">
 
-  <!-- PROFILE PAGE -->
-  <section id="profilePage" class="page">
-    <h2>Your Profile</h2>
-    <input id="profileUsername" placeholder="Username">
-    <textarea id="profileBio" placeholder="Bio"></textarea>
-    <button id="saveProfileBtn">Save Profile</button>
-    <a href="https://camcookie876.github.io/chat/home/">Latest Version</a>
-  </section>
+      <div class="feature-card">
+        <div class="icon">💬</div>
+        <h3>Real-Time Chat</h3>
+        <p>Instant messaging with invite-only rooms, powered by secure Supabase technology.</p>
+      </div>
 
-<!-- CHAT PAGE -->
-<section id="chatPage" class="page chat-layout">
+      <div class="feature-card">
+        <div class="icon">📝</div>
+        <h3>Social Feed</h3>
+        <p>Share posts, images, and updates with your friends — just like your favorite social apps.</p>
+      </div>
 
-  <!-- LEFT SIDEBAR -->
-  <div class="sidebar">
-    <h3>Recent Rooms</h3>
-    <div id="recentRooms"></div>
+      <div class="feature-card">
+        <div class="icon">🤝</div>
+        <h3>Friends System</h3>
+        <p>Add friends, accept requests, and build your own community.</p>
+      </div>
 
-    <h3>Join/Create</h3>
-    <input id="joinRoomInput" placeholder="Enter room code">
-    <button id="joinRoomBtn">Join Room</button>
-    <button id="createRoomBtn" class="create">+ Create New Room</button>
-    <p>This version is outdated. It may not work. Plese go to the new version to use Camcookie Chat.</p>
-    <a href="https://camcookie876.github.io/chat/home/">Latest Version</a>
-  </div>
+      <div class="feature-card">
+        <div class="icon">🎨</div>
+        <h3>Custom Profiles</h3>
+        <p>Personalize your username, bio, and avatar to express who you are.</p>
+      </div>
 
-  <!-- MAIN CHAT AREA -->
-  <div class="chat-area">
-    <h2 id="roomTitle">Chat</h2>
-    <div id="messages" class="messages"></div>
-    <div class="input-bar">
-      <input id="messageInput" placeholder="Type a message...">
-      <button id="sendBtn">Send</button>
     </div>
-  </div>
+  </section>
 
-</section>
+  <!-- FOOTER -->
+  <footer class="footer">
+    Camcookie Connect 26
+  </footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-  <script src="app.js"></script>
-  <script src="https://camcookie876.github.io/shutdown/js/chat.js" defer></script>
 </body>
 </html>

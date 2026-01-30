@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Camcookie Chat</title>
+  <link rel="stylesheet" href="main.css">
+</head>
+<body>
+
+  <!-- TOPBAR -->
+  <div id="topbar">
+    <div class="logo">Camcookie Chat</div>
+    <div class="nav">
+      <button onclick="showPage('profilePage')">Profile</button>
+      <button onclick="showPage('chatPage'); initChat()">Chat</button>
+      <button onclick="logout()">Logout</button>
+    </div>
+  </div>
+
+  <!-- LOGIN PAGE -->
+  <section id="loginPage" class="page">
+    <h2>Login</h2>
+    <input id="loginEmail" placeholder="Email">
+    <input id="loginPassword" type="password" placeholder="Password">
+    <button id="loginBtn">Login</button>
+    <p>Don't have an account? <a onclick="showPage('signupPage')">Sign up</a></p>
+    <a href="https://camcookie876.github.io/chat/home/">Latest Version</a>
+  </section>
+
+  <!-- SIGNUP PAGE -->
+  <section id="signupPage" class="page">
+    <h2>Create Account</h2>
+    <input id="signupEmail" placeholder="Email">
+    <input id="signupPassword" type="password" placeholder="Password">
+    <button id="signupBtn">Sign Up</button>
+    <p>Already have an account? <a onclick="showPage('loginPage')">Login</a></p>
+    <a href="https://camcookie876.github.io/chat/home/">Latest Version</a>
+  </section>
+
+  <!-- PROFILE PAGE -->
+  <section id="profilePage" class="page">
+    <h2>Your Profile</h2>
+    <input id="profileUsername" placeholder="Username">
+    <textarea id="profileBio" placeholder="Bio"></textarea>
+    <button id="saveProfileBtn">Save Profile</button>
+    <a href="https://camcookie876.github.io/chat/home/">Latest Version</a>
+  </section>
+
+<!-- CHAT PAGE -->
+<section id="chatPage" class="page chat-layout">
+
+  <!-- LEFT SIDEBAR -->
+  <div class="sidebar">
+    <h3>Recent Rooms</h3>
+    <div id="recentRooms"></div>
+
+    <h3>Join/Create</h3>
+    <input id="joinRoomInput" placeholder="Enter room code">
+    <button id="joinRoomBtn">Join Room</button>
+    <button id="createRoomBtn" class="create">+ Create New Room</button>
+    <p>This version is outdated. It may not work. Plese go to the new version to use Camcookie Chat.</p>
+    <a href="https://camcookie876.github.io/chat/home/">Latest Version</a>
+  </div>
+
+  <!-- MAIN CHAT AREA -->
+  <div class="chat-area">
+    <h2 id="roomTitle">Chat</h2>
+    <div id="messages" class="messages"></div>
+    <div class="input-bar">
+      <input id="messageInput" placeholder="Type a message...">
+      <button id="sendBtn">Send</button>
+    </div>
+  </div>
+
+</section>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <script src="app.js"></script>
+  <script src="https://camcookie876.github.io/shutdown/js/chat.js" defer></script>
+</body>
+</html>
