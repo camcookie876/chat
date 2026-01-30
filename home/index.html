@@ -7,23 +7,13 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script defer src="app.js"></script>
 </head>
+
 <body>
-  <!-- TOPBAR -->
-  <header id="topbar">
-    <div class="logo">Camcookie Connect</div>
-    <nav class="nav">
-      <button data-nav="#connect">Home</button>
-      <button data-nav="#chat">Chat</button>
-      <!-- <button data-nav="#post">Post</button> -->
-      <button data-nav="#settings">Settings</button>
-      <button id="logoutBtn" class="secondary">Logout</button>
-    </nav>
-  </header>
 
   <!-- AUTH OVERLAY -->
-  <div id="authOverlay">
+  <div id="authOverlay" class="overlay">
     <div class="auth-card">
-      <h2>Sign in to Camcookie</h2>
+      <h2>Welcome to Camcookie Connect</h2>
 
       <div class="tabs">
         <button id="loginTab" class="active">Login</button>
@@ -44,96 +34,98 @@
     </div>
   </div>
 
+  <!-- TOP NAV -->
+  <header id="topbar">
+    <div class="logo">Camcookie Connect</div>
+    <nav>
+      <button data-nav="#connect">Home</button>
+      <button data-nav="#chat">Chat</button>
+      <button data-nav="#post">Feed</button>
+      <button data-nav="#settings">Settings</button>
+      <button id="logoutBtn" class="secondary">Logout</button>
+    </nav>
+  </header>
+
   <!-- MAIN PAGES -->
-  <main id="pages">
-    <!-- CONNECT HOME -->
+  <main>
+
+    <!-- CONNECT PAGE -->
     <section id="connectPage" class="page">
-      <div class="page-inner connect-layout">
+      <div class="welcome">
+        <div class="avatar" id="connectAvatar">CC</div>
         <div>
-          <div class="welcome">
-            <div class="avatar" id="connectAvatar">CC</div>
-            <div>
-              <h1>Welcome back, <span id="connectUsername">Camcookie</span>!</h1>
-              <p>Choose where you want to go today.</p>
-            </div>
-          </div>
-
-          <div class="app-grid">
-            <button class="app-card" data-nav="#chat">
-              <div class="icon">💬</div>
-              <h3>Chat</h3>
-              <p>Real-time rooms with invites and messages.</p>
-            </button>
-
-            <button class="app-card disabled">
-              <div class="icon">🌐</div>
-              <h3>Online</h3>
-              <p>Coming soon.</p>
-            </button>
-
-            <button class="app-card" data-nav="#post">
-              <div class="icon">📝</div>
-              <h3>Post</h3>
-              <p>Share updates with your Camcookie friends.</p>
-            </button>
-
-            <button class="app-card" data-nav="#settings">
-              <div class="icon">⚙️</div>
-              <h3>Settings</h3>
-              <p>Profile, theme, and account options.</p>
-            </button>
-          </div>
+          <h1>Hello, <span id="connectUsername">User</span>!</h1>
+          <p>Choose where you want to go today.</p>
         </div>
+      </div>
 
-        <footer class="footer">
-          Camcookie Connect 26 • Powered by Camcookie OS
-        </footer>
+      <div class="app-grid">
+        <button class="app-card" data-nav="#chat">
+          <div class="icon">💬</div>
+          <h3>Chat</h3>
+          <p>Real-time messaging with friends.</p>
+        </button>
+
+        <button class="app-card" data-nav="#post">
+          <div class="icon">📝</div>
+          <h3>Feed</h3>
+          <p>Share posts and see updates.</p>
+        </button>
+
+        <button class="app-card" data-nav="#settings">
+          <div class="icon">⚙️</div>
+          <h3>Settings</h3>
+          <p>Profile and preferences.</p>
+        </button>
       </div>
     </section>
 
     <!-- CHAT PAGE -->
     <section id="chatPage" class="page">
-      <div class="page-inner chat-layout">
+      <div class="chat-layout">
+
+        <!-- SIDEBAR -->
         <aside class="chat-sidebar">
-          <h2>Chats</h2>
+          <h2>Your Chats</h2>
           <button id="createChatBtn" class="full">+ New Chat</button>
 
           <div class="field-group">
-            <label for="joinInviteInput">Join via invite code</label>
+            <label>Join via invite code</label>
             <div class="inline">
               <input id="joinInviteInput" placeholder="Invite code">
               <button id="joinInviteBtn">Join</button>
             </div>
           </div>
 
-          <h3>Your chats</h3>
           <div id="chatList" class="chat-list"></div>
         </aside>
 
+        <!-- MAIN CHAT -->
         <section class="chat-main">
           <header class="chat-header">
             <div>
               <h2 id="chatTitle">Select a chat</h2>
-              <p id="chatSubtitle">Create or join a chat to start messaging.</p>
+              <p id="chatInviteCode" class="invite-code"></p>
             </div>
-            <div id="chatInviteCode" class="invite-code"></div>
           </header>
 
           <div id="messages" class="messages"></div>
 
           <div class="input-bar">
-            <input id="messageInput" placeholder="Type a message..." autocomplete="off">
+            <input id="messageInput" placeholder="Type a message...">
             <button id="sendBtn">Send</button>
           </div>
         </section>
+
       </div>
     </section>
 
-    <!-- POST PAGE -->
+    <!-- FEED PAGE -->
     <section id="postPage" class="page">
-      <div class="page-inner post-layout">
+      <div class="post-layout">
+
         <section class="composer">
-          <h2>Create a post</h2>
+          <h2>Create a Post</h2>
           <textarea id="postContent" placeholder="What's happening?"></textarea>
           <input id="postImageUrl" placeholder="Image URL (optional)">
           <button id="postSubmitBtn">Post</button>
@@ -143,27 +135,44 @@
           <h2>Feed</h2>
           <div id="feedList"></div>
         </section>
+
       </div>
     </section>
 
     <!-- SETTINGS PAGE -->
     <section id="settingsPage" class="page">
-      <div class="page-inner settings-layout">
-        <h2>Settings</h2>
+      <div class="settings-layout">
+        <h2>Profile Settings</h2>
 
-        <section class="card">
-          <h3>Profile</h3>
-          <input id="settingsUsername" placeholder="Username">
-          <textarea id="settingsBio" placeholder="Bio"></textarea>
-          <button id="saveProfileBtn">Save Profile</button>
-        </section>
+        <div class="card">
+          <label>Username</label>
+          <input id="settingsUsername">
 
-        <section class="card">
-          <h3>Theme</h3>
-          <p>Theme system coming soon. For now, enjoy Camcookie Blue.</p>
-        </section>
+          <label>Bio</label>
+          <textarea id="settingsBio"></textarea>
+
+          <button id="saveProfileBtn">Save</button>
+        </div>
+
+        <div class="card">
+          <h3>Friends</h3>
+
+          <div class="inline">
+            <input id="addFriendInput" placeholder="Username">
+            <button id="addFriendBtn">Add</button>
+          </div>
+
+          <h4>Friend Requests</h4>
+          <div id="friendRequestsList"></div>
+
+          <h4>Your Friends</h4>
+          <div id="friendsList"></div>
+        </div>
+
       </div>
     </section>
+
   </main>
+
 </body>
 </html>
