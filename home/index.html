@@ -374,6 +374,27 @@
       color: #166534;
       background: #dcfce7;
     }
+    .popup {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(40px);
+      background: #2563eb;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 12px;
+      font-size: 0.95rem;
+      box-shadow: 0 8px 20px rgba(37,99,235,0.35);
+      opacity: 0;
+      pointer-events: none;
+      transition: 0.3s ease;
+      z-index: 9999;
+    }
+
+    .popup.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
   </style>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -521,7 +542,7 @@
     </section>
 
   </main>
-
+<div id="popup" class="popup"></div>
 <script>
 /* CONFIG */
 const CHAT_APP_URL = "https://camcookie876.github.io/chat/home/";
@@ -541,6 +562,17 @@ let currentUser = null;
 let currentProfile = null;
 let currentChatId = null;
 let currentChatSub = null;
+
+/* REPLACE ALERT */
+function showPopup(message) {
+  const popup = document.getElementById("popup");
+  popup.textContent = message;
+  popup.classList.add("show");
+
+  setTimeout(() => {
+    popup.classList.remove("show");
+  }, 2500);
+}
 
 /* LOGIN CHECK */
 async function checkLogin() {
@@ -714,7 +746,7 @@ async function joinChatByInvite() {
     .maybeSingle();
 
   if (!chat) {
-    alert("No chat found.");
+    showPopup("No chat found.");
     return;
   }
 
@@ -791,6 +823,7 @@ function appendMessage(msg) {
   div.innerHTML = `
     <div class="message-header">
       <span>${msg.username}</span>
+      <p>   </p>
       <span>${time}</span>
     </div>
     <div>${escapeHtml(msg.content)}</div>
@@ -857,7 +890,7 @@ async function saveProfile() {
     updated_at: new Date().toISOString(),
   });
 
-  alert("Profile saved.");
+  showPopup("Profile saved.");
 }
 
 /* FRIENDS */
@@ -898,34 +931,63 @@ async function loadFriends() {
 }
 
 async function addFriend() {
-  const username = document.getElementById("addFriendInput").value.trim();
+  if (!currentUser) return;
+
+  const input = document.getElementById("addFriendInput");
+  let username = input.value.trim();
   if (!username) return;
 
-  const { data: profile } = await chatClient
-    .from("profiles")
-    .select("id")
-    .eq("username", username)
+  // Allow @username style
+  if (username.startsWith("@")) {
+    username = username.slice(1);
+  }
+
+  // 1) Look up in Camcookie Connect 26 (source of truth)
+  const { data: account, error: accountError } = await connectClient
+    .from("accounts")
+    .select("id, username")
+    .ilike("username", username) // case-insensitive
     .maybeSingle();
 
-  if (!profile) {
-    alert("User not found.");
+  if (accountError || !account) {
+    showPopup("No Camcookie Connect 26 user found with that username.");
     return;
   }
 
-  if (profile.id === currentUser.id) {
-    alert("You can't add yourself.");
+  // Prevent adding yourself
+  if (account.id === currentUser.id) {
+    showPopup("You can't add yourself.");
     return;
   }
 
-  await chatClient.from("friends").insert({
+  // 2) Ensure they exist in Chat DB profiles
+  await chatClient
+    .from("profiles")
+    .upsert(
+      {
+        id: account.id,
+        username: account.username,
+        updated_at: new Date().toISOString(),
+      },
+      { onConflict: "id" }
+    );
+
+  // 3) Create friend request in Chat DB
+  const { error: insertError } = await chatClient.from("friends").insert({
     sender: currentUser.id,
-    receiver: profile.id,
+    receiver: account.id,
     status: "pending",
   });
 
-  document.getElementById("addFriendInput").value = "";
+  if (insertError) {
+    console.error("Error sending friend request:", insertError);
+    showPopup("Could not send friend request.");
+    return;
+  }
+
+  input.value = "";
   await loadFriends();
-  alert("Friend request sent.");
+  showPopup("Friend request sent.");
 }
 
 /* UTIL */
